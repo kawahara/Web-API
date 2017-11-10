@@ -1,4 +1,4 @@
-package valandur.webapi.serialize.view.player;
+/*package valandur.webapi.serialize.view.player;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import org.spongepowered.api.data.manipulator.mutable.entity.AchievementData;
@@ -19,3 +19,4 @@ public class AchievementDataView extends BaseView<AchievementData> {
         this.achievements = value.achievements().get();
     }
 }
+*/

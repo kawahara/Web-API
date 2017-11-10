@@ -46,7 +46,6 @@ import org.spongepowered.api.item.inventory.ItemStackSnapshot;
 import org.spongepowered.api.item.merchant.TradeOffer;
 import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.profile.GameProfile;
-import org.spongepowered.api.statistic.achievement.Achievement;
 import org.spongepowered.api.util.Color;
 import org.spongepowered.api.util.ban.Ban;
 import org.spongepowered.api.world.Location;
@@ -156,8 +155,8 @@ public class SerializeService implements ISerializeService {
         registerView(Vector3i.class, Vector3iView.class);
 
         // Player
-        registerView(AchievementData.class, AchievementDataView.class);
-        registerView(Achievement.class, AchievementView.class);
+        /*registerView(AchievementData.class, AchievementDataView.class);
+        registerView(Achievement.class, AchievementView.class);*/
         registerView(Ban.class, BanView.class);
         registerView(ExperienceHolderData.class, ExperienceHolderDataView.class);
         registerView(GameModeData.class, GameModeDataView.class);
@@ -176,7 +175,7 @@ public class SerializeService implements ISerializeService {
         // Data
         supportedData = new ConcurrentHashMap<>();
 
-        supportedData.put("achievements", AchievementData.class);
+        //supportedData.put("achievements", AchievementData.class);
         supportedData.put("age", AgeableData.class);
         supportedData.put("career", CareerData.class);
         supportedData.put("connectedDirection", ConnectedDirectionData.class);

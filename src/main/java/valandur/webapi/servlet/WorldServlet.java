@@ -194,7 +194,8 @@ public class WorldServlet extends BaseServlet {
             req.getDifficulty().ifPresent(props::setDifficulty);
 
             if (req.getSeed() != null) {
-                props.setSeed(req.getSeed());
+                data.sendError(HttpServletResponse.SC_BAD_REQUEST, "Not supported in SpongeAPI 7");
+                return null;
             }
             if (req.doesLoadOnStartup() != null) {
                 props.setLoadOnStartup(req.doesLoadOnStartup());

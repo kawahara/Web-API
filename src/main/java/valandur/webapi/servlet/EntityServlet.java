@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.eclipse.jetty.http.HttpMethod;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.EntityType;
-import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.entity.damage.source.DamageSource;
 import org.spongepowered.api.item.inventory.Carrier;
 import org.spongepowered.api.item.inventory.Inventory;
@@ -15,14 +14,14 @@ import org.spongepowered.api.world.World;
 import valandur.webapi.WebAPI;
 import valandur.webapi.api.cache.entity.ICachedEntity;
 import valandur.webapi.api.cache.world.ICachedWorld;
-import valandur.webapi.serialize.request.misc.DamageRequest;
 import valandur.webapi.api.servlet.BaseServlet;
 import valandur.webapi.api.servlet.Endpoint;
 import valandur.webapi.api.servlet.Servlet;
 import valandur.webapi.cache.entity.CachedEntity;
-import valandur.webapi.servlet.base.ServletData;
 import valandur.webapi.serialize.request.entity.CreateEntityRequest;
 import valandur.webapi.serialize.request.entity.UpdateEntityRequest;
+import valandur.webapi.serialize.request.misc.DamageRequest;
+import valandur.webapi.servlet.base.ServletData;
 import valandur.webapi.util.Util;
 
 import javax.servlet.http.HttpServletResponse;
@@ -162,7 +161,7 @@ public class EntityServlet extends BaseServlet {
             World w = optLive.get();
             Entity e = w.createEntity(optEntType.get(), req.getPosition());
 
-            if (w.spawnEntity(e, Cause.source(WebAPI.getContainer()).build())) {
+            if (w.spawnEntity(e)) {
                 return e;
             } else {
                 e.remove();
