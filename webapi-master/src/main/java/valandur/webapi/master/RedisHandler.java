@@ -12,6 +12,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class RedisHandler extends AbstractHandler {
 
@@ -28,7 +32,26 @@ public class RedisHandler extends AbstractHandler {
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         logger.info("Request: " + target);
+        String path = target;
+
         String serverId = request.getHeader("X-WEBAPI-SERVER");
-        redis.getQueue("requests_" + serverId).add(target);
+        if (serverId == null) {
+            List<String> pathParts = getPathParts(target);
+            if (pathParts.size() == 0) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Server not found");
+                return;
+            }
+
+            serverId = pathParts.get(0);
+            path = String.join("/", pathParts.subList(1, pathParts.size()));
+        }
+
+        redis.getQueue("requests_" + serverId).add(path);
+    }
+
+    public static List<String> getPathParts(String path) {
+        if (path == null) return new ArrayList<>();
+        return Arrays.stream(path.replaceFirst("^/", "")
+                .split("/")).filter(s -> !s.isEmpty()).collect(Collectors.toList());
     }
 }
